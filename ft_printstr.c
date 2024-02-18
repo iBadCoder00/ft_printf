@@ -13,65 +13,65 @@
 #include "ft_printf.h"
 
 int		ft_strlen(const char *s);
-int 	str_formatter(t_format format, const char *s);
+int		str_formatter(t_format format, const char *s);
 int		ft_strlen(const char *s);
 
 int	ft_printstr(const char *s, t_format format)
 {
 	ignore_flags(&format, " +#0");
-	return(str_formatter(format, s));
+	return (str_formatter(format, s));
 }
 
-int ft_strlen(const char *s)
+int	ft_strlen(const char *s)
 {
-	int length;
+	int	length;
 
 	if (!s)
-		return(0);
+		return (0);
 	length = 0;
-	while(s[length])
+	while (s[length])
 		length++;
-	return(length);
+	return (length);
 }
 
-int min_str_width(const char *s, t_format *format)
+int	min_str_width(const char *s, t_format *format)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	if(!format->precision_dot)
+	if (!format->precision_dot)
 		format->precision = ft_strlen(s);
-	while(*s && i < format->precision)
+	while (*s && i < format->precision)
 	{
 		i++;
 		s++;
 	}
-	return(i);
+	return (i);
 }
 
-int str_formatter(t_format format, const char *s)
+int	str_formatter(t_format format, const char *s)
 {
-    int min_w;
-	int printed;
-    int i;
+	int	min_w;
+	int	printed;
+	int	i;
 
 	i = 0;
 	printed = 0;
-	if(!s)
+	if (!s)
 	{
-		if(format.precision_dot)
+		if (format.precision_dot)
 			format.precision = 0;
-		return(ft_printstr("(null)", format));
+		return (ft_printstr("(null)", format));
 	}
 	min_w = min_str_width(s, &format);
-    while (min_w < format.l_offset--)
-        	printed += ft_printf(" ");
-    while (i < format.precision && *s)
+	while (min_w < format.l_offset--)
+		printed += ft_printf(" ");
+	while (i < format.precision && *s)
 	{
-        printed += ft_printf("%c", *s++);
+		printed += ft_printf("%c", *s++);
 		i++;
 	}
-    while (min_w < format.r_offset--)
-        	printed += ft_printf(" ");
-	return(printed);
+	while (min_w < format.r_offset--)
+		printed += ft_printf(" ");
+	return (printed);
 }

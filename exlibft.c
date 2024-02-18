@@ -1,25 +1,38 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exlibft.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: adavila- <adavila-@student.42madrid.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/18 17:11:34 by adavila-          #+#    #+#             */
+/*   Updated: 2024/02/18 17:11:34 by adavila-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-void ft_putnbr_fd(long int n)
+void	ft_putnbr_fd(long int n)
 {
-    int modulo;
-    modulo = n % 10;
-    n /= 10;
-    if (n < 0 || modulo < 0)
-    {
-        ft_printf("-");
-        modulo *= -1;
-        n *= -1;
-    }
-    if (n > 0)
-    {
-        ft_putnbr_fd(n);
-        ft_printf("%c", modulo + '0');
-    }
-    else
-    {
-        ft_printf("%c", modulo + '0');
-    }
+	int	modulo;
+
+	modulo = n % 10;
+	n /= 10;
+	if (n < 0 || modulo < 0)
+	{
+		ft_printf("-");
+		modulo *= -1;
+		n *= -1;
+	}
+	if (n > 0)
+	{
+		ft_putnbr_fd(n);
+		ft_printf("%c", modulo + '0');
+	}
+	else
+	{
+		ft_printf("%c", modulo + '0');
+	}
 }
 
 int	ft_atoi(const char *string)
@@ -47,7 +60,7 @@ int	ft_atoi(const char *string)
 	return (number * sign);
 }
 
-int ft_putchar(int c)
+int	ft_putchar(int c)
 {
 	write(1, &c, 1);
 	return (1);
