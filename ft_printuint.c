@@ -32,10 +32,10 @@ static void	ft_putunbr_fd(unsigned long n)
 	if (n > 0)
 	{
 		ft_putunbr_fd(n);
-		printf("%c", modulo + '0');
+		ft_putchar(modulo + '0');
 	}
 	else
 	{
-		printf("%c", modulo + '0');
+		ft_putchar(modulo + '0');
 	}
 }

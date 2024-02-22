@@ -59,7 +59,7 @@ int	str_formatter(t_format format, const char *s)
 	printed = 0;
 	if (!s)
 	{
-		if (format.precision_dot)
+		if (format.precision_dot && format.precision < ft_strlen("(null)"))
 			format.precision = 0;
 		return (ft_printstr("(null)", format));
 	}

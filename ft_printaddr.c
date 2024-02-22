@@ -29,5 +29,3 @@ int	ft_printaddr(void *addr, t_format format)
 	t_length = n_formatter(format, (unsigned long) addr, to_hex, hex_count);
 	return (t_length);
 }
-
-

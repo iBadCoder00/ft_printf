@@ -65,3 +65,15 @@ int	ft_putchar(int c)
 	write(1, &c, 1);
 	return (1);
 }
+
+int	null_value(long n, t_format format)
+{
+	if (n == 0 && format.precision == 0 && format.precision_dot)
+	{
+		if (format.l_offset || format.r_offset)
+			return (' ');
+		else
+			return (0);
+	}
+	return (1);
+}

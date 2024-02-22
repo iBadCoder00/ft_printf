@@ -36,32 +36,47 @@ static int	print_flags(t_format format, long *n)
 	return (w_chars);
 }
 
+int	zero_offset(void (*print_number)(), t_format format, long n, int length)
+{
+	int	printed;
+	int	min_w;
+
+	printed = 0;
+	min_w = get_min_width(format, n);
+	printed += print_flags(format, &n);
+	while (min_w < format.l_offset--)
+		printed += ft_putchar('0');
+	print_number(n, format.type);
+	return (printed + length);
+}
+
 int	n_formatter(t_format format, long n,
 	void (*print_number)(), int (*nl_count)())
 {
 	int	min_w;
 	int	n_length;
 	int	printed;
+	int	null_n;
 
+	null_n = null_value(n, format);
 	printed = 0;
+	if (null_n == 0)
+		printed--;
 	min_w = get_min_width(format, n);
 	n_length = nl_count(n);
 	if (format.zero)
-	{
-		printed += print_flags(format, &n);
-		while (min_w < format.l_offset--)
-			printed += ft_printf("0");
-		print_number(n, format.type);
-		return (printed + n_length);
-	}
+		return (zero_offset(print_number, format, n, n_length));
 	while (min_w < format.l_offset--)
-		printed += ft_printf(" ");
+		printed += ft_putchar(' ');
 	printed += print_flags(format, &n);
 	while (n_length < format.precision--)
-		printed += ft_printf("0");
-	print_number(n, format.type);
+		printed += ft_putchar('0');
+	if (null_n != 1 && null_n != 0)
+		ft_putchar(null_n);
+	else if (null_n != 0)
+		print_number(n, format.type);
 	while (min_w < format.r_offset--)
-		printed += ft_printf(" ");
+		printed += ft_putchar(' ');
 	return (printed + n_length);
 }
 

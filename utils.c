@@ -23,7 +23,7 @@ void	to_hex(unsigned long n, int mode)
 		flag = 'A';
 	digit = n % 16;
 	if (n == 0)
-		printf("0");
+		ft_putchar('0');
 	if (n > 0)
 	{
 		if (n / 16 != 0)
@@ -32,7 +32,7 @@ void	to_hex(unsigned long n, int mode)
 			digit = digit - 10 + flag;
 		else
 			digit = digit + '0';
-		printf("%c", digit);
+		ft_putchar(digit);
 	}
 }
 

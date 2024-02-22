@@ -12,7 +12,6 @@
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
-# include <stdio.h>
 # include <stdarg.h>
 # include <unistd.h>
 
@@ -40,14 +39,15 @@ int		ft_printint(long n, t_format format);
 int		ft_printuint(unsigned int u_int, t_format format);
 int		ft_printhex(long n, t_format format);
 int		ft_atoi(const char *string);
-void	ft_putnbr_fd(long int n);
 int		uint_length(unsigned int n);
-void	to_hex(unsigned long n, int mode);
 int		n_formatter(t_format format, long n,
 			void (*print_number)(), int (*nl_count)());
 int		get_min_width(t_format format, long n);
-void	ignore_flags(t_format *format, char *s);
+int		null_value(long n, t_format format);
 int		is_set(char c, char *set);
 int		int_length(long int n);
 int		hex_count(unsigned long n);
+void	ignore_flags(t_format *format, char *s);
+void	to_hex(unsigned long n, int mode);
+void	ft_putnbr_fd(long int n);
 #endif
