@@ -42,7 +42,7 @@ int		ft_atoi(const char *string);
 int		uint_length(unsigned int n);
 int		n_formatter(t_format format, long n,
 			void (*print_number)(), int (*nl_count)());
-int		get_min_width(t_format format, long n);
+int		get_min_width(t_format format, long n, int n_length);
 int		null_value(long n, t_format format);
 int		is_set(char c, char *set);
 int		int_length(long int n);

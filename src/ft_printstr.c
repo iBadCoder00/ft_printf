@@ -65,13 +65,13 @@ int	str_formatter(t_format format, const char *s)
 	}
 	min_w = min_str_width(s, &format);
 	while (min_w < format.l_offset--)
-		printed += ft_printf(" ");
+		printed += ft_putchar(' ');
 	while (i < format.precision && *s)
 	{
-		printed += ft_printf("%c", *s++);
+		printed += ft_putchar(*s++);
 		i++;
 	}
 	while (min_w < format.r_offset--)
-		printed += ft_printf(" ");
+		printed += ft_putchar(' ');
 	return (printed);
 }

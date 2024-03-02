@@ -19,19 +19,19 @@ static int	print_flags(t_format format, long *n)
 	w_chars = 0;
 	if (*n < 0 && format.type != 'X' && format.type != 'x')
 	{
-		w_chars += ft_printf("-");
+		w_chars += ft_putchar('-');
 		*n *= -1;
 	}
 	else if (format.plus)
-		w_chars += ft_printf("+");
+		w_chars += ft_putchar('+');
 	else if (format.space)
-		w_chars += ft_printf(" ");
+		w_chars += ft_putchar(' ');
 	else if ((format.sharp && *n != 0) || (format.type == 'p' && *n != 0))
 	{
-		w_chars += ft_printf("0");
+		w_chars += ft_putchar('0');
 		if (format.type == 'p')
 			format.type = 'x';
-		w_chars += ft_printf("%c", format.type);
+		w_chars += ft_putchar(format.type);
 	}
 	return (w_chars);
 }
@@ -42,7 +42,7 @@ int	zero_offset(void (*print_number)(), t_format format, long n, int length)
 	int	min_w;
 
 	printed = 0;
-	min_w = get_min_width(format, n);
+	min_w = get_min_width(format, n, length);
 	printed += print_flags(format, &n);
 	while (min_w < format.l_offset--)
 		printed += ft_putchar('0');
@@ -62,8 +62,8 @@ int	n_formatter(t_format format, long n,
 	printed = 0;
 	if (null_n == 0)
 		printed--;
-	min_w = get_min_width(format, n);
 	n_length = nl_count(n);
+	min_w = get_min_width(format, n, n_length);
 	if (format.zero)
 		return (zero_offset(print_number, format, n, n_length));
 	while (min_w < format.l_offset--)
@@ -96,23 +96,18 @@ void	ignore_flags(t_format *format, char *s)
 			format->zero = 0;
 		s++;
 	}
+	if (format->type == 'p' && format->precision)
+		format->precision = 0;
 	if ((format->zero && format->minus)
 		|| (format->zero && format->precision_dot))
 		format->zero = 0;
 }
 
-int	get_min_width(t_format format, long n)
+int	get_min_width(t_format format, long n, int n_length)
 {
 	int	t_length;
-	int	n_length;
 
 	t_length = 0;
-	if (format.type == 'u')
-		n_length = uint_length(n);
-	else
-		n_length = int_length(n);
-	if (format.type == 'x' || format.type == 'X' || format.type == 'p')
-		n_length = hex_count(n);
 	if (format.precision > n_length)
 		t_length = n_length + (format.precision - n_length);
 	else

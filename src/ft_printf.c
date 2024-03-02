@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-int		selector(const char *s, va_list *args, t_format format);
+int		selector(va_list *args, t_format format);
 int		get_format(const char **s, va_list *args);
 void	set_flag(const char*s, t_format *format);
 
@@ -54,24 +54,24 @@ int	ft_printf(const char *s, ...)
 	return (p_chars);
 }
 
-int	selector(const char *s, va_list *args, t_format format)
+int	selector(va_list *args, t_format format)
 {
 	size_t	w_chars;
 
 	w_chars = 0;
-	if (*(s) == 'c')
+	if (format.type == 'c')
 		w_chars += ft_printchar(va_arg(*args, int), format);
-	else if (*(s) == 's')
+	else if (format.type == 's')
 		w_chars += ft_printstr(va_arg(*args, char *), format);
-	else if (*(s) == 'p')
+	else if (format.type == 'p')
 		w_chars += ft_printaddr(va_arg(*args, void *), format);
-	else if (*(s) == 'd' || *(s) == 'i')
+	else if (format.type == 'd' || format.type == 'i')
 		w_chars += ft_printint(va_arg(*args, int), format);
-	else if (*(s) == 'u')
+	else if (format.type == 'u')
 		w_chars += ft_printuint(va_arg(*args, unsigned int), format);
-	else if (*(s) == 'x' || *(s) == 'X')
+	else if (format.type == 'x' || format.type == 'X')
 		w_chars += ft_printhex(va_arg(*args, unsigned int), format);
-	else if (*(s) == '%')
+	else if (format.type == '%')
 		w_chars += ft_putchar('%');
 	return (w_chars);
 }
@@ -100,7 +100,7 @@ int	get_format(const char **s, va_list *args)
 		(*s)++;
 	}
 	format.type = **s;
-	return (selector(*s, args, format));
+	return (selector(args, format));
 }
 
 void	set_flag(const char *s, t_format *format)

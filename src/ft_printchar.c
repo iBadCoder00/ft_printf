@@ -18,9 +18,9 @@ int	ft_printchar(char c, t_format format)
 
 	printed = 0;
 	while (1 < format.l_offset--)
-		printed += ft_printf(" ");
+		printed += ft_putchar(' ');
 	printed += ft_putchar(c);
 	while (1 < format.r_offset--)
-		printed += ft_printf(" ");
+		printed += ft_putchar(' ');
 	return (printed);
 }
